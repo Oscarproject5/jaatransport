@@ -38,12 +38,12 @@ export const trackPhoneClick = (phoneNumber: string, location: string = 'floatin
       value: phoneNumber
     })
 
-    // Track as a conversion for Google Ads
-    // window.gtag('event', 'conversion', {
-    //   'send_to': 'AW-17671021510/PHONE_CONVERSION_LABEL',
-    //   'value': 1.0,
-    //   'currency': 'USD'
-    // })
+    // Track as a conversion for Google Ads - Call (9563726956)
+    window.gtag('event', 'conversion', {
+      'send_to': 'AW-17671021510/InX0CNG1lrlbEMbHmepB',
+      'value': 1.0,
+      'currency': 'USD'
+    })
 
     console.log('Phone click tracked:', phoneNumber, location)
   }
