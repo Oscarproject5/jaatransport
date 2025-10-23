@@ -88,18 +88,18 @@ export default function ThankYou() {
               <h3 className="font-bold text-gray-800 mb-4">Need Immediate Assistance?</h3>
               <div className="space-y-3">
                 <a
-                  href="tel:9565004050"
+                  href="tel:9563726956"
                   className="flex items-center gap-3 text-primary hover:text-blue-700 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
-                  <span className="font-semibold">(956) 500-4050</span>
+                  <span className="font-semibold">(956) 372-6956</span>
                 </a>
                 <a
-                  href="mailto:jaatransportllc@outlook.com"
+                  href="mailto:jaatransport01@gmail.com"
                   className="flex items-center gap-3 text-primary hover:text-blue-700 transition-colors"
                 >
                   <Mail className="w-5 h-5" />
-                  <span className="font-semibold">jaatransportllc@outlook.com</span>
+                  <span className="font-semibold">jaatransport01@gmail.com</span>
                 </a>
                 <div className="flex items-center gap-3 text-gray-600">
                   <Clock className="w-5 h-5" />
