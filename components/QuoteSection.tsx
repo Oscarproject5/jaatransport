@@ -26,6 +26,16 @@ export default function QuoteSection() {
     setSubmitStatus('idle')
 
     try {
+      // Execute invisible reCAPTCHA v3 (zero friction for users)
+      let recaptchaToken = ''
+      if (typeof window !== 'undefined' && (window as any).grecaptcha) {
+        try {
+          recaptchaToken = await (window as any).grecaptcha.execute('6LeuvPQrAAAAAIMzO13CYkOpGUjlyC8J_PJTEFMr', { action: 'submit' })
+        } catch (error) {
+          console.warn('reCAPTCHA failed, submitting without token:', error)
+        }
+      }
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -37,6 +47,7 @@ export default function QuoteSection() {
           email: formData.email || 'noreply@jaatransport.com',
           phone: formData.phone,
           subject: `New Freight Quote Request from ${formData.name}`,
+          recaptcha_token: recaptchaToken, // Bot protection
           message: `
 Contact Information:
 Name: ${formData.name}

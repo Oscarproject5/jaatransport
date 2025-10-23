@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'JAA TRANSPORT | RGV Step Deck Transportation & Freight Hauling',
-  description: 'JAA TRANSPORT - Reliable step deck transportation and freight hauling services across the Rio Grande Valley. Serving Brownsville, McAllen, Harlingen, Edinburg, and all RGV cities. 24/7 dispatch, free quotes, fast response.',
+  description: 'Professional step deck transportation & freight hauling services in the Rio Grande Valley. Heavy equipment transport, oversized loads, auction transport. 24/7 dispatch. Free quotes within 1 hour. Serving Brownsville, McAllen, Harlingen & all RGV.',
   keywords: 'JAA TRANSPORT, step deck transportation, freight hauling, Rio Grande Valley, RGV, Brownsville, McAllen, Harlingen, heavy equipment transport, oversized loads',
   icons: {
     icon: '/icon',
@@ -59,8 +59,16 @@ export default function RootLayout({
               gtag('js', new Date());
               gtag('config', 'AW-17671021510');
               gtag('config', 'GT-PZQZVF9L');
+              gtag('config', 'AW-17671021510/IxNOH0irfhoBENbHmepB', {
+                'phone_conversion_number': '9563726956'
+              });
             `,
           }}
+        />
+        {/* Google reCAPTCHA v3 - Invisible bot protection */}
+        <Script
+          src="https://www.google.com/recaptcha/api.js?render=6LeuvPQrAAAAAIMzO13CYkOpGUjlyC8J_PJTEFMr"
+          strategy="afterInteractive"
         />
         {children}
       </body>
