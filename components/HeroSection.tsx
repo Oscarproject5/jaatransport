@@ -24,7 +24,7 @@ export default function HeroSection() {
         <img
           src="/images/Oversized Loads/3619948323582472618.jpeg"
           alt="JAA Transport Equipment Hauling"
-          className="w-full h-full object-cover scale-x-[-1]"
+          className="w-full h-full object-cover"
         />
         {/* Dark Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
@@ -36,8 +36,8 @@ export default function HeroSection() {
       </div>
 
       <div className="container-custom px-4 py-24 md:py-32 relative z-10">
-        <div className="max-w-4xl">
-          {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Content */}
           <div className="text-white space-y-4 md:space-y-6">
             <div className="inline-block">
               <span className="bg-white/20 backdrop-blur-sm text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-semibold">
@@ -73,8 +73,8 @@ export default function HeroSection() {
               </a>
             </div>
 
-            {/* Service Highlights */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-6 md:pt-8">
+            {/* Service Highlights - Desktop Only */}
+            <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-6 md:pt-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center border border-white/20">
                 <div className="text-2xl md:text-3xl font-bold text-accent">24/7</div>
                 <div className="text-xs md:text-sm text-gray-200 font-semibold">Dispatch</div>
@@ -92,6 +92,11 @@ export default function HeroSection() {
                 <div className="text-xs md:text-sm text-gray-200 font-semibold">Local</div>
               </div>
             </div>
+          </div>
+
+          {/* Right Content - Empty for spacing */}
+          <div className="hidden lg:block">
+            {/* This div intentionally left empty to maintain grid layout */}
           </div>
         </div>
       </div>
