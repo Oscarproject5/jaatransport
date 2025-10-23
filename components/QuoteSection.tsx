@@ -78,7 +78,6 @@ ${formData.message || 'No additional details provided'}
             'value': 1.0,
             'currency': 'USD'
           })
-          console.log('Form conversion tracked after successful submission')
         }
 
         // Reset form
