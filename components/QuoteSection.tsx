@@ -71,6 +71,16 @@ ${formData.message || 'No additional details provided'}
       if (result.success) {
         setSubmitStatus('success')
 
+        // Track conversion for Google Ads - Submit lead form
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'conversion', {
+            'send_to': 'AW-17671021510/8GapCLG5lrlbEMbHmepB',
+            'value': 1.0,
+            'currency': 'USD'
+          })
+          console.log('Form conversion tracked after successful submission')
+        }
+
         // Reset form
         setFormData({
           name: '',
@@ -82,7 +92,7 @@ ${formData.message || 'No additional details provided'}
           loadType: '',
           message: ''
         })
-        // Redirect to thank you page (conversion tracking happens there)
+        // Redirect to thank you page after conversion tracking
         setTimeout(() => {
           router.push('/thank-you')
         }, 500)
