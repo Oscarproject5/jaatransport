@@ -1,0 +1,20 @@
+SITELINK 1 - OVERSIZED TRANSPORT
+=====================================
+Sitelink text: Oversized Transport (19 chars)
+Description line 1: Heavy machinery & equipment moves (34 chars)
+Description line 2: Nationwide permits & escort service (35 chars)
+Final URL: https://jaatransport.com/oversized-loads
+
+SITELINK 2 - GET INSTANT QUOTE
+=====================================
+Sitelink text: Get Instant Quote (17 chars)
+Description line 1: Free pricing for oversized loads (33 chars)
+Description line 2: 24/7 quotes - No hidden fees (29 chars)
+Final URL: https://jaatransport.com/quote
+
+SITELINK 3 - ROUTE PLANNING
+=====================================
+Sitelink text: Route Planning (14 chars)
+Description line 1: Specialized routes for wide loads (34 chars)
+Description line 2: DOT compliant - All states covered (35 chars)
+Final URL: https://jaatransport.com/route-planning
