@@ -17,13 +17,12 @@ export const trackFormSubmission = (formType: string = 'quote_form') => {
       value: 1
     })
 
-    // Track conversion for Google Ads (if you have a conversion ID)
-    // Replace 'CONVERSION_ID' and 'CONVERSION_LABEL' with your actual values
-    // window.gtag('event', 'conversion', {
-    //   'send_to': 'AW-17671021510/CONVERSION_LABEL',
-    //   'value': 1.0,
-    //   'currency': 'USD'
-    // })
+    // Track conversion for Google Ads - Submit lead form
+    window.gtag('event', 'conversion', {
+      'send_to': 'AW-17671021510/8GapCLG5lrlbEMbHmepB',
+      'value': 1.0,
+      'currency': 'USD'
+    })
 
     console.log('Form submission tracked:', formType)
   }
