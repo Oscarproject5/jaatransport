@@ -18,16 +18,24 @@ export default function HeroSection() {
   }
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-primary-dark via-primary to-primary-light lg:bg-none">
+      {/* Background Image - Desktop Only */}
+      <div className="hidden lg:block absolute inset-0 z-0">
         <img
           src="/images/Oversized Loads/3619948323582472618.jpeg"
           alt="JAA Transport Equipment Hauling"
           className="w-full h-full object-cover"
+          style={{ objectPosition: '70% center' }}
         />
         {/* Dark Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
+      </div>
+
+      {/* Background Pattern - Mobile Only */}
+      <div className="lg:hidden absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px)',
+        }}></div>
       </div>
 
       {/* Mobile Urgency Banner */}
@@ -46,13 +54,47 @@ export default function HeroSection() {
             </div>
 
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
-              EQUIPMENT TRANSPORT FOR BUILDERS & RENTAL YARDS <span className="text-accent">IN THE RGV</span>
+              STEP DECK & HEAVY EQUIPMENT HAULING <span className="text-accent">IN THE RGV</span>
             </h1>
 
             <p className="text-base md:text-xl text-gray-200 leading-relaxed">
               We haul your backhoes, skid-steers, mini-excavators between jobsites, from dealers, auctions, or anywhere you need — fast turnaround, fully insured, same-day pickup available.
             </p>
 
+            {/* Hero Image - Between text and buttons on mobile */}
+            <div className="lg:hidden my-6">
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
+                <div className="relative h-64">
+                  <img
+                    src="/images/Oversized Loads/3619948323582472618.jpeg"
+                    alt="JAA TRANSPORT - Equipment Hauling"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+                  {/* Trust Badges Overlay - Compact */}
+                  <div className="absolute top-2 right-2 flex gap-1.5">
+                    <div className="bg-primary/90 backdrop-blur-sm border border-white/20 text-white px-2 py-1 rounded-md shadow-lg text-center">
+                      <div className="text-xs font-bold">100%</div>
+                      <div className="text-[8px] font-semibold">Insured</div>
+                    </div>
+                    <div className="bg-accent/95 backdrop-blur-sm border border-white/20 text-primary-dark px-2 py-1 rounded-md shadow-lg text-center">
+                      <div className="text-xs font-bold">15+</div>
+                      <div className="text-[8px] font-semibold">Years</div>
+                    </div>
+                    <div className="bg-accent/95 backdrop-blur-sm border border-white/20 text-primary-dark px-2 py-1 rounded-md shadow-lg text-center">
+                      <div className="text-xs font-bold">RGV</div>
+                      <div className="text-[8px] font-semibold">Local</div>
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                    <h3 className="text-lg font-bold mb-1">Your Local RGV Freight Partner</h3>
+                    <p className="text-sm text-gray-200">Professional step deck transportation you can trust</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
             {/* Mobile: Larger, more prominent CTAs */}
             <div className="flex flex-col gap-3 md:gap-4 pt-4">

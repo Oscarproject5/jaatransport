@@ -52,13 +52,21 @@ export default function Header() {
             </button>
           </nav>
 
-          {/* Phone Number */}
-          <TrackedPhoneLink
-            phoneNumber="9563726956"
-            displayText="(956) 372-6956"
-            location="header"
-            className="text-primary hover:text-primary-dark font-bold text-lg md:text-xl transition-colors"
-          />
+          {/* CTA Section */}
+          <div className="flex items-center space-x-3 md:space-x-4">
+            <TrackedPhoneLink
+              phoneNumber="9563726956"
+              displayText="(956) 372-6956"
+              location="header"
+              className="text-primary hover:text-primary-dark font-bold text-lg md:text-xl transition-colors"
+            />
+            <button
+              onClick={() => scrollToSection('quote')}
+              className="hidden md:block bg-accent hover:bg-yellow-400 text-primary-dark font-bold px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105"
+            >
+              Get Free Quote
+            </button>
+          </div>
         </div>
       </div>
     </header>
