@@ -10,13 +10,15 @@ export default function ThankYou() {
   useEffect(() => {
     setIsVisible(true)
 
-    // Track conversion for Google Ads
+    // Track conversion for Google Ads - Submit lead form
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'conversion', {
-        'send_to': 'YOUR_CONVERSION_ID', // You'll replace this with your actual Google Ads conversion ID
+        'send_to': 'AW-17671021510/8GapCLG5lrlbEMbHmepB',
         'value': 1.0,
         'currency': 'USD'
       })
+
+      console.log('Form conversion tracked on thank-you page')
     }
   }, [])
 
