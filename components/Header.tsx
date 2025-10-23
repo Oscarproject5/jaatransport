@@ -1,6 +1,7 @@
 'use client'
 
 import { Truck } from 'lucide-react'
+import TrackedPhoneLink from './TrackedPhoneLink'
 
 export default function Header() {
   const scrollToSection = (id: string) => {
@@ -52,12 +53,12 @@ export default function Header() {
           </nav>
 
           {/* Phone Number */}
-          <a
-            href="tel:+19563726956"
+          <TrackedPhoneLink
+            phoneNumber="9563726956"
+            displayText="(956) 372-6956"
+            location="header"
             className="text-primary hover:text-primary-dark font-bold text-lg md:text-xl transition-colors"
-          >
-            (956) 372-6956
-          </a>
+          />
         </div>
       </div>
     </header>

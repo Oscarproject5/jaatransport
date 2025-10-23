@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Phone, Mail, MapPin, Send, MessageSquare } from 'lucide-react'
+import { trackFormSubmission } from '@/utils/googleAnalytics'
 
 export default function QuoteSection() {
   const router = useRouter()
@@ -59,6 +60,10 @@ ${formData.message || 'No additional details provided'}
 
       if (result.success) {
         setSubmitStatus('success')
+
+        // Track form submission in Google Analytics
+        trackFormSubmission('freight_quote_form')
+
         // Reset form
         setFormData({
           name: '',

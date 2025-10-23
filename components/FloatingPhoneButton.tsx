@@ -1,11 +1,17 @@
 'use client'
 
 import { Phone } from 'lucide-react'
+import { trackPhoneClick } from '@/utils/googleAnalytics'
 
 export default function FloatingPhoneButton() {
+  const handlePhoneClick = () => {
+    trackPhoneClick('(956) 372-6956', 'floating_button')
+  }
+
   return (
     <a
       href="tel:+19563726956"
+      onClick={handlePhoneClick}
       className="fixed bottom-20 right-4 md:bottom-6 md:right-6 z-50 group"
       aria-label="Call JAA Transport"
     >
