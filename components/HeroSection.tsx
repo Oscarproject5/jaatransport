@@ -18,12 +18,16 @@ export default function HeroSection() {
   }
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center bg-gradient-to-br from-primary-dark via-primary to-primary-light overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.05) 35px, rgba(255,255,255,.05) 70px)',
-        }}></div>
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/images/Oversized Loads/3619948323582472618.jpeg"
+          alt="JAA Transport Equipment Hauling"
+          className="w-full h-full object-cover"
+        />
+        {/* Dark Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
       </div>
 
       {/* Mobile Urgency Banner */}
@@ -32,8 +36,8 @@ export default function HeroSection() {
       </div>
 
       <div className="container-custom px-4 py-24 md:py-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Content */}
           <div className="text-white space-y-4 md:space-y-6">
             <div className="inline-block">
               <span className="bg-white/20 backdrop-blur-sm text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-semibold">
@@ -49,40 +53,6 @@ export default function HeroSection() {
               We haul your backhoes, skid-steers, mini-excavators between jobsites, from dealers, auctions, or anywhere you need — fast turnaround, fully insured, same-day pickup available.
             </p>
 
-            {/* Hero Image - Between text and buttons on mobile */}
-            <div className="lg:hidden my-6">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
-                <div className="relative h-64">
-                  <img
-                    src="/images/company-truck-owner.png"
-                    alt="JAA TRANSPORT - Our Truck & Team"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-
-                  {/* Trust Badges Overlay - Compact */}
-                  <div className="absolute top-2 right-2 flex gap-1.5">
-                    <div className="bg-primary/90 backdrop-blur-sm border border-white/20 text-white px-2 py-1 rounded-md shadow-lg text-center">
-                      <div className="text-xs font-bold">100%</div>
-                      <div className="text-[8px] font-semibold">Insured</div>
-                    </div>
-                    <div className="bg-accent/95 backdrop-blur-sm border border-white/20 text-primary-dark px-2 py-1 rounded-md shadow-lg text-center">
-                      <div className="text-xs font-bold">15+</div>
-                      <div className="text-[8px] font-semibold">Years</div>
-                    </div>
-                    <div className="bg-accent/95 backdrop-blur-sm border border-white/20 text-primary-dark px-2 py-1 rounded-md shadow-lg text-center">
-                      <div className="text-xs font-bold">RGV</div>
-                      <div className="text-[8px] font-semibold">Local</div>
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                    <h3 className="text-lg font-bold mb-1">Your Local RGV Freight Partner</h3>
-                    <p className="text-sm text-gray-200">Professional step deck transportation you can trust</p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
             {/* Mobile: Larger, more prominent CTAs */}
             <div className="flex flex-col gap-3 md:gap-4 pt-4">
@@ -103,8 +73,8 @@ export default function HeroSection() {
               </a>
             </div>
 
-            {/* Service Highlights - Desktop Only */}
-            <div className="hidden md:grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-6 md:pt-8">
+            {/* Service Highlights */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-6 md:pt-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center border border-white/20">
                 <div className="text-2xl md:text-3xl font-bold text-accent">24/7</div>
                 <div className="text-xs md:text-sm text-gray-200 font-semibold">Dispatch</div>
@@ -120,30 +90,6 @@ export default function HeroSection() {
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center border border-white/20">
                 <div className="text-2xl md:text-3xl font-bold text-accent">RGV</div>
                 <div className="text-xs md:text-sm text-gray-200 font-semibold">Local</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Content - Company Truck & Owner Photo - Desktop Only */}
-          <div className="relative hidden lg:block">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
-              <div className="relative h-64 md:h-80 lg:h-[500px]">
-                <img
-                  src="/images/company-truck-owner.png"
-                  alt="JAA TRANSPORT - Our Truck & Team"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
-                  <h3 className="text-xl md:text-2xl font-bold mb-1 md:mb-2">Your Local RGV Freight Partner</h3>
-                  <p className="text-sm md:text-base text-gray-200">Professional step deck transportation you can trust</p>
-                </div>
-
-                {/* Mobile: Trust Badge Overlay */}
-                <div className="lg:hidden absolute top-4 right-4 bg-accent text-primary-dark px-3 py-2 rounded-lg shadow-lg">
-                  <div className="text-xs font-bold">15+ Years</div>
-                  <div className="text-[10px]">Experience</div>
-                </div>
               </div>
             </div>
           </div>
