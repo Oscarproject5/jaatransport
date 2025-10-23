@@ -24,7 +24,7 @@ export default function HeroSection() {
         <img
           src="/images/Oversized Loads/3619948323582472618.jpeg"
           alt="JAA Transport Equipment Hauling"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-x-[-1]"
         />
         {/* Dark Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
@@ -36,8 +36,8 @@ export default function HeroSection() {
       </div>
 
       <div className="container-custom px-4 py-24 md:py-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
+        <div className="max-w-4xl">
+          {/* Main Content */}
           <div className="text-white space-y-4 md:space-y-6">
             <div className="inline-block">
               <span className="bg-white/20 backdrop-blur-sm text-white px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-semibold">
@@ -73,8 +73,8 @@ export default function HeroSection() {
               </a>
             </div>
 
-            {/* Service Highlights - Mobile */}
-            <div className="grid grid-cols-2 gap-3 pt-6 lg:hidden">
+            {/* Service Highlights */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-6 md:pt-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center border border-white/20">
                 <div className="text-2xl md:text-3xl font-bold text-accent">24/7</div>
                 <div className="text-xs md:text-sm text-gray-200 font-semibold">Dispatch</div>
@@ -90,69 +90,6 @@ export default function HeroSection() {
               <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 md:p-4 text-center border border-white/20">
                 <div className="text-2xl md:text-3xl font-bold text-accent">RGV</div>
                 <div className="text-xs md:text-sm text-gray-200 font-semibold">Local</div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Content - Trust Card */}
-          <div className="relative hidden lg:block">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl">
-              <h3 className="text-white text-2xl font-bold mb-6">Why Choose JAA Transport?</h3>
-
-              {/* Trust Points */}
-              <div className="space-y-4 mb-6">
-                <div className="flex items-center space-x-3">
-                  <div className="bg-accent rounded-full p-2">
-                    <svg className="w-5 h-5 text-primary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-200">15+ Years of Trusted Service in RGV</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="bg-accent rounded-full p-2">
-                    <svg className="w-5 h-5 text-primary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-200">Fully Licensed & Insured Carrier</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="bg-accent rounded-full p-2">
-                    <svg className="w-5 h-5 text-primary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-200">Same-Day Pickup Available</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="bg-accent rounded-full p-2">
-                    <svg className="w-5 h-5 text-primary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-200">Auction Lot to Job-Site Delivery</p>
-                </div>
-              </div>
-
-              {/* Service Stats */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                  <div className="text-3xl font-bold text-accent">24/7</div>
-                  <div className="text-sm text-gray-200 font-semibold">Dispatch</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                  <div className="text-3xl font-bold text-accent">100%</div>
-                  <div className="text-sm text-gray-200 font-semibold">Insured</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                  <div className="text-3xl font-bold text-accent">15+</div>
-                  <div className="text-sm text-gray-200 font-semibold">Years</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center border border-white/20">
-                  <div className="text-3xl font-bold text-accent">RGV</div>
-                  <div className="text-sm text-gray-200 font-semibold">Local</div>
-                </div>
               </div>
             </div>
           </div>
