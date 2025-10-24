@@ -59,7 +59,7 @@ export default function RootLayout({
               gtag('js', new Date());
               gtag('config', 'AW-17671021510');
               gtag('config', 'GT-PZQZVF9L');
-              gtag('config', 'AW-17671021510/IxNOH0irfhoBENbHmepB', {
+              gtag('config', 'AW-17671021510/InX0CNG1lrIbEMbHmepB', {
                 'phone_conversion_number': '9563726956'
               });
             `,
