@@ -19,7 +19,7 @@ export const trackFormSubmission = (formType: string = 'quote_form') => {
 
     // Track conversion for Google Ads - Submit lead form
     window.gtag('event', 'conversion', {
-      'send_to': 'AW-17671021510/8GapCLG5lrlbEMbHmepB',
+      'send_to': 'AW-17671021510/8GapCLG5lrIbEMbHmepB',
       'value': 1.0,
       'currency': 'USD'
     })
