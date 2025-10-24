@@ -26,13 +26,15 @@ export default function QuoteSection() {
     setSubmitStatus('idle')
 
     try {
-      // Execute invisible reCAPTCHA v3 (zero friction for users)
+      // Get reCAPTCHA v2 response token (user must click checkbox)
       let recaptchaToken = ''
       if (typeof window !== 'undefined' && (window as any).grecaptcha) {
-        try {
-          recaptchaToken = await (window as any).grecaptcha.execute('6LeuvPQrAAAAAIMzO13CYkOpGUjlyC8J_PJTEFMr', { action: 'submit' })
-        } catch (error) {
-          console.warn('reCAPTCHA failed, submitting without token:', error)
+        recaptchaToken = (window as any).grecaptcha.getResponse()
+
+        if (!recaptchaToken) {
+          alert('Please complete the reCAPTCHA verification')
+          setIsSubmitting(false)
+          return
         }
       }
 
@@ -91,6 +93,10 @@ ${formData.message || 'No additional details provided'}
           loadType: '',
           message: ''
         })
+        // Reset reCAPTCHA
+        if (typeof window !== 'undefined' && (window as any).grecaptcha) {
+          (window as any).grecaptcha.reset()
+        }
         // Redirect to thank you page after conversion tracking
         setTimeout(() => {
           router.push('/thank-you')
@@ -381,6 +387,14 @@ ${formData.message || 'No additional details provided'}
                     className="w-full px-4 py-5 md:py-4 lg:py-3 border-2 border-gray-300 rounded-xl md:rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all resize-none text-base"
                     placeholder="Equipment dimensions, weight, date needed, auction deadline, or any other details..."
                   ></textarea>
+                </div>
+
+                {/* reCAPTCHA v2 Checkbox */}
+                <div className="flex justify-center">
+                  <div
+                    className="g-recaptcha"
+                    data-sitekey="6Lcx-_QrAAAAAM9TTAOSQ5dcHxD0UVjOFjl53x4R"
+                  ></div>
                 </div>
 
                 {/* Submit Button - Mobile Optimized */}

@@ -65,9 +65,9 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Google reCAPTCHA v3 - Invisible bot protection */}
+        {/* Google reCAPTCHA v2 - Checkbox bot protection */}
         <Script
-          src="https://www.google.com/recaptcha/api.js?render=6LeuvPQrAAAAAIMzO13CYkOpGUjlyC8J_PJTEFMr"
+          src="https://www.google.com/recaptcha/api.js"
           strategy="afterInteractive"
         />
         {children}
