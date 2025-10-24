@@ -27,15 +27,18 @@ export default function QuoteSection() {
 
     try {
       // Get reCAPTCHA v2 response token (user must click checkbox)
-      let recaptchaToken = ''
-      if (typeof window !== 'undefined' && (window as any).grecaptcha) {
-        recaptchaToken = (window as any).grecaptcha.getResponse()
+      if (typeof window === 'undefined' || !(window as any).grecaptcha) {
+        alert('reCAPTCHA not loaded. Please refresh the page.')
+        setIsSubmitting(false)
+        return
+      }
 
-        if (!recaptchaToken) {
-          alert('Please complete the reCAPTCHA verification')
-          setIsSubmitting(false)
-          return
-        }
+      const recaptchaToken = (window as any).grecaptcha.getResponse()
+
+      if (!recaptchaToken) {
+        alert('Please complete the reCAPTCHA verification by clicking the checkbox')
+        setIsSubmitting(false)
+        return
       }
 
       const response = await fetch('https://api.web3forms.com/submit', {
