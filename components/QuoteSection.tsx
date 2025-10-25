@@ -4,6 +4,29 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Phone, Mail, MapPin, Send, MessageSquare } from 'lucide-react'
 
+// List of blocked IP addresses - add spam IPs here as you identify them
+const BLOCKED_IPS: string[] = [
+  // Example: '123.45.67.89',
+  // Add real spam IPs below as you find them:
+]
+
+// Block entire IP ranges by checking prefix
+const BLOCKED_IP_RANGES: string[] = [
+  // Example: '192.168.',  // Blocks all 192.168.x.x
+  // Add spam IP ranges below:
+]
+
+// Helper function to check if IP is blocked
+function isIpBlocked(ip: string): boolean {
+  // Check exact IP match
+  if (BLOCKED_IPS.includes(ip)) {
+    return true
+  }
+
+  // Check IP range match
+  return BLOCKED_IP_RANGES.some(range => ip.startsWith(range))
+}
+
 export default function QuoteSection() {
   const router = useRouter()
   const [formData, setFormData] = useState({
@@ -18,7 +41,7 @@ export default function QuoteSection() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'blocked'>('idle')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -41,6 +64,25 @@ export default function QuoteSection() {
         return
       }
 
+      // Get user's IP address for spam tracking
+      let userIp = 'Not available'
+      try {
+        const ipResponse = await fetch('/api/get-ip')
+        const ipData = await ipResponse.json()
+        userIp = ipData.ip || 'Not available'
+      } catch (ipError) {
+        console.error('Failed to get IP:', ipError)
+        // Continue with form submission even if IP fetch fails
+      }
+
+      // Check if IP is blocked
+      if (userIp !== 'Not available' && isIpBlocked(userIp)) {
+        console.log('Blocked spam submission from IP:', userIp)
+        setSubmitStatus('blocked')
+        setIsSubmitting(false)
+        return
+      }
+
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
@@ -53,6 +95,8 @@ export default function QuoteSection() {
           phone: formData.phone,
           subject: `New Freight Quote Request from ${formData.name}`,
           recaptcha_token: recaptchaToken, // Bot protection
+          ip_address: userIp, // Track IP for spam detection
+          submission_time: new Date().toISOString(),
           message: `
 Contact Information:
 Name: ${formData.name}
@@ -61,12 +105,16 @@ Email: ${formData.email || 'Not provided'}
 Company: ${formData.company || 'Not provided'}
 
 Shipment Details:
-Pickup City: ${formData.pickupCity}
+Pickup Address: ${formData.pickupCity}
 Delivery City: ${formData.deliveryCity}
 Load Type: ${formData.loadType}
 
 Additional Details:
 ${formData.message || 'No additional details provided'}
+
+Security Information:
+IP Address: ${userIp}
+Submitted: ${new Date().toLocaleString()}
           `
         }),
       })
@@ -122,32 +170,16 @@ ${formData.message || 'No additional details provided'}
     })
   }
 
-  const rgvCities = [
-    'Brownsville',
-    'McAllen',
-    'Harlingen',
-    'Edinburg',
-    'Pharr',
-    'Mission',
-    'San Benito',
-    'Weslaco',
-    'Donna',
-    'Mercedes',
-    'La Feria',
-    'Rio Grande City',
-    'Other'
-  ]
-
   const loadTypes = [
-    'Backhoe',
+    'Other',
     'Skid-Steer',
-    'Mini Excavator',
+    'Backhoe',
     'Forklift',
     'Tractor',
-    'Construction Equipment',
+    'Mini Excavator',
     'Auction Equipment Pickup',
-    'Building Materials',
-    'Other'
+    'Construction Equipment',
+    'Building Materials'
   ]
 
   return (
@@ -320,40 +352,32 @@ ${formData.message || 'No additional details provided'}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-6">
                   <div>
                     <label className="block text-xs md:text-sm lg:text-base font-semibold text-primary mb-1 md:mb-2">
-                      Pickup City *
+                      Pickup Address *
                     </label>
-                    <select
+                    <input
+                      type="text"
                       name="pickupCity"
                       value={formData.pickupCity}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-5 md:py-4 lg:py-3 border-2 border-gray-300 rounded-xl md:rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all text-base appearance-none bg-white"
-                      style={{backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%23333\' d=\'M6 9L1 4h10z\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center'}}
-                    >
-                      <option value="">Select City</option>
-                      {rgvCities.map((city) => (
-                        <option key={city} value={city}>{city}</option>
-                      ))}
-                    </select>
+                      className="w-full px-4 py-5 md:py-4 lg:py-3 border-2 border-gray-300 rounded-xl md:rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all text-base"
+                      placeholder="123 Main St, McAllen, TX 78501"
+                    />
                   </div>
 
                   <div>
                     <label className="block text-xs md:text-sm lg:text-base font-semibold text-primary mb-1 md:mb-2">
                       Delivery City *
                     </label>
-                    <select
+                    <input
+                      type="text"
                       name="deliveryCity"
                       value={formData.deliveryCity}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-5 md:py-4 lg:py-3 border-2 border-gray-300 rounded-xl md:rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all text-base appearance-none bg-white"
-                      style={{backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'%3E%3Cpath fill=\'%23333\' d=\'M6 9L1 4h10z\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center'}}
-                    >
-                      <option value="">Select City</option>
-                      {rgvCities.map((city) => (
-                        <option key={city} value={city}>{city}</option>
-                      ))}
-                    </select>
+                      className="w-full px-4 py-5 md:py-4 lg:py-3 border-2 border-gray-300 rounded-xl md:rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all text-base"
+                      placeholder="Brownsville"
+                    />
                   </div>
                 </div>
 
@@ -428,6 +452,17 @@ ${formData.message || 'No additional details provided'}
                   <div className="bg-red-50 border-2 border-red-500 rounded-xl md:rounded-lg p-5 text-center">
                     <p className="text-red-800 font-bold text-lg">❌ Oops! Something went wrong</p>
                     <p className="text-red-700 text-base mt-2">No worries! Call us directly:</p>
+                    <a href="tel:+19563726956" className="inline-block mt-3 bg-green-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-green-600 active:scale-95">
+                      📞 (956) 372-6956
+                    </a>
+                  </div>
+                )}
+
+                {/* Blocked Message */}
+                {submitStatus === 'blocked' && (
+                  <div className="bg-orange-50 border-2 border-orange-500 rounded-xl md:rounded-lg p-5 text-center">
+                    <p className="text-orange-800 font-bold text-lg">⚠️ Unable to submit online</p>
+                    <p className="text-orange-700 text-base mt-2">Please contact us directly for assistance:</p>
                     <a href="tel:+19563726956" className="inline-block mt-3 bg-green-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-green-600 active:scale-95">
                       📞 (956) 372-6956
                     </a>
