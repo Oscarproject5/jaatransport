@@ -33,7 +33,6 @@ export default function QuoteSection() {
     name: '',
     phone: '',
     email: '',
-    company: '',
     pickupCity: '',
     deliveryCity: '',
     loadType: '',
@@ -102,7 +101,6 @@ Contact Information:
 Name: ${formData.name}
 Phone: ${formData.phone}
 Email: ${formData.email || 'Not provided'}
-Company: ${formData.company || 'Not provided'}
 
 Shipment Details:
 Pickup Address: ${formData.pickupCity}
@@ -138,7 +136,6 @@ Submitted: ${new Date().toLocaleString()}
           name: '',
           phone: '',
           email: '',
-          company: '',
           pickupCity: '',
           deliveryCity: '',
           loadType: '',
@@ -318,34 +315,18 @@ Submitted: ${new Date().toLocaleString()}
                 </div>
 
                 {/* Row 2 */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-6">
-                  <div>
-                    <label className="block text-xs md:text-sm lg:text-base font-semibold text-primary mb-1 md:mb-2">
-                      Email (Optional)
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full px-4 py-5 md:py-4 lg:py-3 border-2 border-gray-300 rounded-xl md:rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all text-base"
-                      placeholder="john@company.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs md:text-sm lg:text-base font-semibold text-primary mb-1 md:mb-2">
-                      Company (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      className="w-full px-4 py-5 md:py-4 lg:py-3 border-2 border-gray-300 rounded-xl md:rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all text-base"
-                      placeholder="Your Company"
-                    />
-                  </div>
+                <div>
+                  <label className="block text-xs md:text-sm lg:text-base font-semibold text-primary mb-1 md:mb-2">
+                    Email (Optional)
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-4 py-5 md:py-4 lg:py-3 border-2 border-gray-300 rounded-xl md:rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all text-base"
+                    placeholder="john@example.com"
+                  />
                 </div>
 
                 {/* Row 3 */}
