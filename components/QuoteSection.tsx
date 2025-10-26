@@ -4,28 +4,33 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Phone, Mail, MapPin, Send, MessageSquare } from 'lucide-react'
 
-// List of blocked IP addresses - add spam IPs here as you identify them
-const BLOCKED_IPS: string[] = [
-  '38.50.216.127',
-  '208.129.31.5',
-  '206.199.216.108',
-]
-
-// Block entire IP ranges by checking prefix
-const BLOCKED_IP_RANGES: string[] = [
-  // Example: '192.168.',  // Blocks all 192.168.x.x
-  // Add spam IP ranges below:
-]
-
-// Helper function to check if IP is blocked
-function isIpBlocked(ip: string): boolean {
-  // Check exact IP match
-  if (BLOCKED_IPS.includes(ip)) {
-    return true
+// Helper function to check if IP is blocked via API
+async function isIpBlocked(ip: string): Promise<boolean> {
+  try {
+    const response = await fetch('/api/admin/blocked-ips', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ip })
+    })
+    const data = await response.json()
+    return data.blocked || false
+  } catch (error) {
+    console.error('Error checking IP block status:', error)
+    return false
   }
+}
 
-  // Check IP range match
-  return BLOCKED_IP_RANGES.some(range => ip.startsWith(range))
+// Helper function to log submission
+async function logSubmission(data: any): Promise<void> {
+  try {
+    await fetch('/api/admin/submissions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+  } catch (error) {
+    console.error('Error logging submission:', error)
+  }
 }
 
 export default function QuoteSection() {
@@ -76,12 +81,23 @@ export default function QuoteSection() {
       }
 
       // Check if IP is blocked
-      if (userIp !== 'Not available' && isIpBlocked(userIp)) {
+      if (userIp !== 'Not available' && await isIpBlocked(userIp)) {
         console.log('Blocked spam submission from IP:', userIp)
         setSubmitStatus('blocked')
         setIsSubmitting(false)
         return
       }
+
+      // Log submission for admin tracking
+      await logSubmission({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        ip: userIp,
+        pickupCity: formData.pickupCity,
+        deliveryCity: formData.deliveryCity,
+        loadType: formData.loadType
+      })
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
