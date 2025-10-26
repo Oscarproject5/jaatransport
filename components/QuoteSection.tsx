@@ -6,8 +6,9 @@ import { Phone, Mail, MapPin, Send, MessageSquare } from 'lucide-react'
 
 // List of blocked IP addresses - add spam IPs here as you identify them
 const BLOCKED_IPS: string[] = [
-  // Example: '123.45.67.89',
-  // Add real spam IPs below as you find them:
+  '38.50.216.127',
+  '208.129.31.5',
+  '206.199.216.108',
 ]
 
 // Block entire IP ranges by checking prefix
