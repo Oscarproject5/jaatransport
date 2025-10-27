@@ -1,5 +1,15 @@
 # Admin Panel Guide
 
+## ⚠️ IMPORTANT: Upstash Redis Setup Required
+
+**If your admin panel isn't working (can't add IPs), you need to set up Upstash Redis first!**
+
+📘 **[READ THE SETUP GUIDE HERE: UPSTASH-REDIS-SETUP.md](./UPSTASH-REDIS-SETUP.md)**
+
+This takes 5 minutes and is required for the admin panel to work on Vercel.
+
+---
+
 ## Accessing the Admin Panel
 
 Your secure admin panel is accessible at: **`/31060`**
@@ -64,8 +74,14 @@ Your secure admin panel is accessible at: **`/31060`**
 
 ## Data Storage
 
-All data is stored in JSON files in the `/data` folder:
+### Production (Vercel)
+All data is stored in **Upstash Redis** database:
+- Persists between deployments
+- Fast and reliable
+- See [UPSTASH-REDIS-SETUP.md](./UPSTASH-REDIS-SETUP.md) for setup
 
+### Local Development
+All data is stored in JSON files in the `/data` folder:
 - `blocked-ips.json` - List of blocked IPs and ranges
 - `recent-submissions.json` - Last 100 form submissions
 
@@ -97,11 +113,14 @@ Block the entire range `123.45.67.` to stop all of them at once.
 
 ## Backup and Deployment
 
-The JSON files in `/data` contain your blocked IPs and submission history. When deploying:
+When deploying to Vercel:
 
-1. The initial blocked IPs are already in `blocked-ips.json`
-2. After you add/remove IPs via the admin panel, those changes persist
-3. Make sure your hosting platform (Vercel, Netlify, etc.) has write access to the `/data` folder
+1. Set up Upstash Redis (see [UPSTASH-REDIS-SETUP.md](./UPSTASH-REDIS-SETUP.md))
+2. Add environment variables to Vercel
+3. Deploy your code
+4. Manually re-add your blocked IPs via the admin panel
+
+Your data will persist in Upstash Redis between deployments.
 
 ## Troubleshooting
 
@@ -110,8 +129,9 @@ The JSON files in `/data` contain your blocked IPs and submission history. When 
 - Try clearing your browser cache
 
 **Blocked IPs aren't working?**
-- Make sure you've deployed the latest changes
-- Check that the `/data` folder exists and is writable
+- Make sure you've set up Upstash Redis (see setup guide)
+- Check environment variables are set in Vercel
+- Verify you redeployed after adding environment variables
 
 **Submissions not showing?**
 - Submissions only appear after users submit the form

@@ -1,8 +1,5 @@
 import { NextResponse } from 'next/server'
-import fs from 'fs/promises'
-import path from 'path'
-
-const DATA_FILE = path.join(process.cwd(), 'data', 'blocked-ips.json')
+import { getBlockedIps, saveBlockedIps, isIpBlocked } from '@/lib/db'
 
 // Admin password (in production, use environment variable)
 const ADMIN_PASSWORD = '31060'
@@ -22,9 +19,10 @@ export async function GET(request: Request) {
   }
 
   try {
-    const data = await fs.readFile(DATA_FILE, 'utf-8')
-    return NextResponse.json(JSON.parse(data))
+    const data = await getBlockedIps()
+    return NextResponse.json(data)
   } catch (error) {
+    console.error('Error getting blocked IPs:', error)
     return NextResponse.json({ blockedIps: [], blockedRanges: [] })
   }
 }
@@ -38,12 +36,11 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { action, ip, range, reason } = body
 
-    const fileContent = await fs.readFile(DATA_FILE, 'utf-8')
-    const data = JSON.parse(fileContent)
+    const data = await getBlockedIps()
 
     if (action === 'add-ip' && ip) {
       // Check if IP already exists
-      const exists = data.blockedIps.some((item: any) => item.ip === ip)
+      const exists = data.blockedIps.some((item) => item.ip === ip)
       if (!exists) {
         data.blockedIps.push({
           ip,
@@ -52,10 +49,10 @@ export async function POST(request: Request) {
         })
       }
     } else if (action === 'remove-ip' && ip) {
-      data.blockedIps = data.blockedIps.filter((item: any) => item.ip !== ip)
+      data.blockedIps = data.blockedIps.filter((item) => item.ip !== ip)
     } else if (action === 'add-range' && range) {
       // Check if range already exists
-      const exists = data.blockedRanges.some((item: any) => item.range === range)
+      const exists = data.blockedRanges.some((item) => item.range === range)
       if (!exists) {
         data.blockedRanges.push({
           range,
@@ -64,10 +61,10 @@ export async function POST(request: Request) {
         })
       }
     } else if (action === 'remove-range' && range) {
-      data.blockedRanges = data.blockedRanges.filter((item: any) => item.range !== range)
+      data.blockedRanges = data.blockedRanges.filter((item) => item.range !== range)
     }
 
-    await fs.writeFile(DATA_FILE, JSON.stringify(data, null, 2))
+    await saveBlockedIps(data)
     return NextResponse.json({ success: true, data })
   } catch (error) {
     console.error('Error managing blocked IPs:', error)
@@ -81,19 +78,10 @@ export async function PUT(request: Request) {
     const body = await request.json()
     const { ip } = body
 
-    const fileContent = await fs.readFile(DATA_FILE, 'utf-8')
-    const data = JSON.parse(fileContent)
-
-    // Check exact IP match
-    const isBlocked = data.blockedIps.some((item: any) => item.ip === ip)
-    if (isBlocked) {
-      return NextResponse.json({ blocked: true })
-    }
-
-    // Check IP range match
-    const isRangeBlocked = data.blockedRanges.some((item: any) => ip.startsWith(item.range))
-    return NextResponse.json({ blocked: isRangeBlocked })
+    const blocked = await isIpBlocked(ip)
+    return NextResponse.json({ blocked })
   } catch (error) {
+    console.error('Error checking IP:', error)
     return NextResponse.json({ blocked: false })
   }
 }
