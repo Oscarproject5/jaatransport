@@ -20,19 +20,19 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 w-full bg-white shadow-md z-50">
-      <div className="container-custom">
-        <div className="flex items-center justify-between py-3 md:py-4 px-4">
+      <div className="container-custom max-w-full">
+        <div className="flex items-center justify-between h-16 md:h-20 px-3 sm:px-4 gap-3">
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center space-x-2 active:scale-95 transition-transform"
+            className="flex items-center space-x-2 active:scale-95 transition-transform flex-shrink-0"
           >
             <div className="bg-primary p-2 rounded-lg">
-              <Truck className="w-6 h-6 md:w-8 md:h-8 text-white" />
+              <Truck className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
             </div>
             <div className="flex flex-col">
-              <span className="text-primary font-bold text-lg md:text-xl leading-tight">JAA TRANSPORT</span>
-              <span className="text-secondary text-xs md:text-sm leading-tight font-semibold">RGV Step Deck</span>
+              <span className="text-primary font-bold text-base sm:text-lg md:text-xl leading-tight">JAA TRANSPORT</span>
+              <span className="text-secondary text-[10px] sm:text-xs md:text-sm leading-tight font-semibold">RGV Step Deck</span>
             </div>
           </button>
 
@@ -49,13 +49,13 @@ export default function Header() {
             </button>
           </nav>
 
-          {/* CTA Section */}
-          <div className="flex items-center space-x-3 md:space-x-4">
+          {/* CTA Section - Right side, vertically centered */}
+          <div className="flex items-center space-x-2 md:space-x-4 flex-shrink-0">
             <TrackedPhoneLink
               phoneNumber="9563726956"
               displayText="(956) 372-6956"
               location="header"
-              className="text-primary hover:text-primary-dark font-bold text-lg md:text-xl transition-colors"
+              className="text-primary hover:text-primary-dark font-bold text-lg sm:text-xl md:text-xl transition-colors select-text cursor-pointer whitespace-nowrap"
             />
             <button
               onClick={() => scrollToSection('quote')}

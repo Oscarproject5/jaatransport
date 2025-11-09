@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Truck, Package, Wrench, Tractor, Zap, Building } from 'lucide-react'
 import ImagePlaceholder from './ImagePlaceholder'
+import ImageLightbox from './ImageLightbox'
 
 interface Service {
   id: string
@@ -92,6 +93,8 @@ export default function ServicesSection() {
   const [selectedService, setSelectedService] = useState<Service>(services[0])
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxImageIndex, setLightboxImageIndex] = useState(0)
 
   const handleServiceClick = (service: Service) => {
     setSelectedService(service)
@@ -100,6 +103,23 @@ export default function ServicesSection() {
 
   const handleImageError = (imageUrl: string) => {
     setImageErrors(prev => ({ ...prev, [imageUrl]: true }))
+  }
+
+  const openLightbox = (index: number) => {
+    setLightboxImageIndex(index)
+    setLightboxOpen(true)
+  }
+
+  const handleNextImage = () => {
+    setLightboxImageIndex((prev) =>
+      prev === selectedService.images.length - 1 ? 0 : prev + 1
+    )
+  }
+
+  const handlePrevImage = () => {
+    setLightboxImageIndex((prev) =>
+      prev === 0 ? selectedService.images.length - 1 : prev - 1
+    )
   }
 
   return (
@@ -143,7 +163,7 @@ export default function ServicesSection() {
             {/* Main Service Card */}
             <div className="bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all duration-500">
               {/* Image Carousel */}
-              <div className="relative h-72 bg-gradient-to-br from-gray-100 to-gray-200">
+              <div className="relative h-72 bg-gradient-to-br from-gray-100 to-gray-200 cursor-pointer" onClick={() => openLightbox(currentImageIndex)}>
                 {imageErrors[selectedService.images[currentImageIndex]] ? (
                   <div className="w-full h-full">
                     <ImagePlaceholder
@@ -265,11 +285,19 @@ export default function ServicesSection() {
                   {selectedService.images.map((image, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden transition-all duration-300 ${
+                      onClick={(e) => {
+                        if (e.detail === 2) {
+                          // Double click - open lightbox
+                          openLightbox(index)
+                        } else {
+                          // Single click - change current image
+                          setCurrentImageIndex(index)
+                        }
+                      }}
+                      className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden transition-all duration-300 cursor-pointer ${
                         currentImageIndex === index
                           ? 'ring-2 ring-primary ring-offset-2 scale-95'
-                          : 'opacity-70'
+                          : 'opacity-70 hover:opacity-100'
                       }`}
                     >
                       {imageErrors[image] ? (
@@ -331,7 +359,7 @@ export default function ServicesSection() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
               {/* Main Image */}
-              <div className="relative h-96 bg-gray-200 overflow-hidden">
+              <div className="relative h-96 bg-gray-200 overflow-hidden cursor-pointer" onClick={() => openLightbox(currentImageIndex)}>
                 {imageErrors[selectedService.images[currentImageIndex]] ? (
                   <div className="w-full h-full">
                     <ImagePlaceholder
@@ -344,7 +372,7 @@ export default function ServicesSection() {
                   <img
                     src={selectedService.images[currentImageIndex]}
                     alt={selectedService.title}
-                    className="w-full h-full object-cover object-[center_40%] transition-all duration-500"
+                    className="w-full h-full object-cover object-[center_40%] transition-all duration-500 hover:scale-105"
                     onError={() => handleImageError(selectedService.images[currentImageIndex])}
                   />
                 )}
@@ -364,8 +392,16 @@ export default function ServicesSection() {
                   {selectedService.images.map((image, index) => (
                     <button
                       key={index}
-                      onClick={() => setCurrentImageIndex(index)}
-                      className={`flex-1 h-24 rounded-lg overflow-hidden transition-all duration-300 ${
+                      onClick={(e) => {
+                        if (e.detail === 2) {
+                          // Double click - open lightbox
+                          openLightbox(index)
+                        } else {
+                          // Single click - change current image
+                          setCurrentImageIndex(index)
+                        }
+                      }}
+                      className={`flex-1 h-24 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${
                         currentImageIndex === index
                           ? 'ring-4 ring-primary scale-105'
                           : 'opacity-60 hover:opacity-100'
@@ -435,6 +471,16 @@ export default function ServicesSection() {
           </button>
         </div>
       </div>
+
+      {/* Image Lightbox */}
+      <ImageLightbox
+        isOpen={lightboxOpen}
+        imageUrl={selectedService.images[lightboxImageIndex]}
+        onClose={() => setLightboxOpen(false)}
+        onNext={handleNextImage}
+        onPrev={handlePrevImage}
+        title={selectedService.title}
+      />
     </section>
   )
 }

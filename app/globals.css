@@ -161,3 +161,46 @@ html {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Chrome, Safari and Opera */
 }
+
+/* Ensure header stays consistent across all mobile viewports */
+header {
+  width: 100vw;
+  max-width: 100vw;
+  left: 0;
+  right: 0;
+}
+
+header .container-custom {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Prevent header content from overflowing on small screens */
+@media (max-width: 767px) {
+  header {
+    min-height: 64px;
+    height: 64px;
+  }
+
+  header * {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+
+  /* Ensure phone number is selectable */
+  header a[href^="tel"] {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+  }
+}
+
+/* Additional breakpoint for very small screens */
+@media (max-width: 360px) {
+  header .flex.items-center.justify-between {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    gap: 0.5rem;
+  }
+}
